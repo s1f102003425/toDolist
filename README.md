@@ -1,2 +1,2 @@
 # toDolist
-*Git hub assistant で push するときはスプレッドシートの共有権限をリンクを知っている誰にでもにしないとできない
+*Git hub assistant で push するときはスプレッドシートの共有権限を「リンクを知っている誰にでも」にしないとできない
