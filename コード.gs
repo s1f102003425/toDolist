@@ -1,5 +1,8 @@
+// スクリプトプロパティでトークンキーを管理
+const prop = PropertiesService.getScriptProperties().getProperties();
+const ACCESS_TOKEN = prop.ACCESS_TOKEN;
 // LINE developersのメッセージ送受信設定に記載のアクセストークン
-const ACCESS_TOKEN = 'ifwD6Ld47FPMvu528gnGL884k38nlOXrM9p7Z30UScGnqceqch0qqjFA5osCq1zJIpGQImiO2hWP9vJTKLqoFrhwbMOw14bEkMpZzzmnTVW8MdNLHcis9pJMf9ttp6MM4lMaBzkaZNRDxlhXmu+CggdB04t89/1O/w1cDnyilFU=';
+// const ACCESS_TOKEN = 'ここにAPIトークンを入力';
 function doPost(e) {
   // WebHookで受信した応答用Token
   var replyToken = JSON.parse(e.postData.contents).events[0].replyToken;
@@ -38,14 +41,14 @@ function doPost(e) {
     chFlg = 3
     var range = wSheet.getRange(4,1,lastRow-3,5);
     var values = range.getValues();
-    resMessage = '0.\t発案者\n\tやること\n\t予算\n\t時期\n\t所要時間\n';
+    resMessage = '☆\t発案者\n\tやること\n\t予算\n\t時期\n\t所要時間\n';
     let rowNum = 1;
     for(let rows of values){
       resMessage += '\n';
       resMessage += String(rowNum) + '.';
       for(let v of rows.slice(0,5)){
-        if(String(v) === ''){
-          v = '?'
+        if(String(v) === '' || String(v) === '?' || String(v) === '？'){
+          v = '-'
         }
         resMessage += '\t' + String(v) + '\n';}
       rowNum++;
