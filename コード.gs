@@ -44,7 +44,7 @@ function doPost(e) {
     resMessage = '☆\t発案者\n\tやること\n\t予算\n\t時期\n\t所要時間\n';
     let rowNum = 1;
     for(let rows of values){
-      resMessage += '\n';
+      resMessage += '------------------------------\n';
       resMessage += String(rowNum) + '.';
       for(let v of rows.slice(0,5)){
         if(String(v) === '' || String(v) === '?' || String(v) === '？'){
