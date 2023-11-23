@@ -25,6 +25,7 @@ function doPost(e) {
   var url = 'https://api.line.me/v2/bot/message/reply';
   //応答メッセージ
   var resMessage;
+  var frexMessageSimulator;
   //入力チェック結果
   var chFlg = 0;
   //記録先シート
@@ -38,23 +39,252 @@ function doPost(e) {
   var today = Utilities.formatDate( date, 'Asia/Tokyo', 'yyyy/MM/dd HH:mm:ss');
   //入力チェック
   if(userMessage.match(/^\$show/)){
+    // chFlg = 3
+    // var range = wSheet.getRange(4,1,lastRow-3,5);
+    // var values = range.getValues();
+    // resMessage = '☆\t発案者\n\tやること\n\t予算\n\t時期\n\t所要時間\n';
+    // let rowNum = 1;
+    // for(let rows of values){
+    //   resMessage += '------------------------------\n';
+    //   resMessage += String(rowNum) + '.';
+    //   for(let v of rows.slice(0,5)){
+    //     if(String(v) === '' || String(v) === '?' || String(v) === '？'){
+    //       v = '-'
+    //     }
+    //     resMessage += '\t' + String(v) + '\n';}
+    //   rowNum++;
+    // }
     chFlg = 3
     var range = wSheet.getRange(4,1,lastRow-3,5);
     var values = range.getValues();
-    resMessage = '☆\t発案者\n\tやること\n\t予算\n\t時期\n\t所要時間\n';
+    // やることリストの雛型を説明
+    var taskList =[
+    {
+      "type": "bubble",
+      "size": "deca",
+      "header": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "text",
+            "text": "☆発案者",
+            "color": "#ffffff",
+            "size": "xs",
+            "offsetBottom": "lg"
+          },
+          {
+            "type": "text",
+            "text": "やること",
+            "size": "lg",
+            "color": "#ffffff",
+            "weight": "bold",
+            "decoration": "underline",
+            "align": "center"
+          },
+          {
+            "type": "text",
+            "text": "予算",
+            "color": "#ffffff",
+            "align": "center",
+            "size": "sm",
+            "gravity": "center",
+            "margin": "lg"
+          },
+          {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
+                    "type": "filler"
+                  }
+                ],
+                "width": "100%",
+                "backgroundColor": "#e6b422",
+                "height": "6px"
+              }
+            ],
+            "backgroundColor": "#9FD8E36E",
+            "height": "6px",
+            "margin": "sm"
+          }
+        ],
+        "backgroundColor": "#0d0015",
+        "paddingTop": "19px",
+        "paddingAll": "12px",
+        "paddingBottom": "16px"
+      },
+      "body": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "box",
+            "layout": "horizontal",
+            "contents": [
+              {
+                "type": "text",
+                "text": "時期",
+                "align": "center"
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "所要時間",
+                    "align": "end",
+                    "weight": "bold",
+                    "position": "relative"
+                  }
+                ],
+                "maxWidth": "75px"
+              }
+            ],
+            "flex": 1
+          }
+        ],
+        "spacing": "md",
+        "paddingAll": "12px"
+      },
+      "styles": {
+        "footer": {
+          "separator": false
+        }
+      }
+    }];
     let rowNum = 1;
     for(let rows of values){
-      resMessage += '------------------------------\n';
-      resMessage += String(rowNum) + '.';
-      for(let v of rows.slice(0,5)){
-        if(String(v) === '' || String(v) === '?' || String(v) === '？'){
-          v = '-'
+      const taskDetails = rows.slice(0,5);
+      const proposer = String(rowNum) + '. ' + String(taskDetails[0]);
+      const thingToDo = String(taskDetails[1]);
+      const budget = '￥' + ((String(taskDetails[2]) !== '' && String(taskDetails[2]) !== '?' && String(taskDetails[2]) !== '？') ? String(taskDetails[2]) : '-');
+      const when = (String(taskDetails[3]) !== '' && String(taskDetails[3]) !== '?' && String(taskDetails[3]) !== '？') ? String(taskDetails[3]) : '-';
+      const duration = String(taskDetails[4]);
+      let backgroundColor;
+      if (duration === '半日'){
+        backgroundColor = '#11734B'
+      }else if(duration === '終日'){
+        backgroundColor = '#0A53A8'
+      }else if(duration === '複数日'){
+        backgroundColor = '#B10202'
+      }else{
+        backgroundColor = '#5A3286'
+      }
+      taskList.push(
+        {
+          "type": "bubble",
+          "size": "deca",
+          "header": {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "text",
+                "text": proposer,
+                "color": "#ffffff",
+                "size": "xs",
+                "offsetBottom": "lg"
+              },
+              {
+                "type": "text",
+                "text": thingToDo,
+                "size": "lg",
+                "color": "#ffffff",
+                "weight": "bold",
+                "decoration": "underline",
+                "align": "center",
+                "adjustMode": "shrink-to-fit"
+              },
+              {
+                "type": "text",
+                "text": budget,
+                "color": "#ffffff",
+                "align": "center",
+                "size": "sm",
+                "gravity": "center",
+                "margin": "lg"
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
+                    "type": "box",
+                    "layout": "vertical",
+                    "contents": [
+                      {
+                        "type": "filler"
+                      }
+                    ],
+                    "width": "100%",
+                    "backgroundColor": "#e6b422",
+                    "height": "6px"
+                  }
+                ],
+                "backgroundColor": "#9FD8E36E",
+                "height": "6px",
+                "margin": "sm"
+              }
+            ],
+            "backgroundColor": backgroundColor,
+            "paddingTop": "19px",
+            "paddingAll": "12px",
+            "paddingBottom": "16px"
+          },
+          "body": {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "box",
+                "layout": "horizontal",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": when,
+                    "align": "center"
+                  },
+                  {
+                    "type": "box",
+                    "layout": "vertical",
+                    "contents": [
+                      {
+                        "type": "text",
+                        "text": duration,
+                        "align": "end",
+                        "weight": "bold",
+                        "position": "relative",
+                        "adjustMode": "shrink-to-fit"
+                      }
+                    ],
+                    "maxWidth": "40px"
+                  }
+                ],
+                "flex": 1
+              }
+            ],
+            "spacing": "md",
+            "paddingAll": "12px"
+          },
+          "styles": {
+            "footer": {
+              "separator": false
+            }
+          }
         }
-        resMessage += '\t' + String(v) + '\n';}
+      )
       rowNum++;
     }
-    Logger.log(values)
-    console.log(values)
+    frexMessageSimulator = {
+      "type": "carousel",
+      "contents": taskList,
+    };
   }else if(userMessage.match(/^\$remove\n[0-9]{1,4}/)){
     if(Number(userMessage.substring(8)) != 0 && Number(userMessage.substring(8)) <= lastRow - 3){
       resMessage = 'やりたいことを削除しました';
@@ -89,12 +319,18 @@ function doPost(e) {
   }else if(chFlg === 2){
     //削除
     wSheet.getRange(clearRow,1,1,6).deleteCells(SpreadsheetApp.Dimension.ROWS)
-    // wSheet.getRange(clearRow,1,1,6).clearContent()
-    // lastRow = wSheet.getLastRow(); 
-    // const data = wSheet.getRange(clearRow+1,1,lastRow-clearRow,6).getValues();
-    // wSheet.getRange(clearRow,1,lastRow-clearRow+1,6).setValues(data);
-    // wSheet.getRange(lastRow,1,1,6).clearContent();
   }
+  var textType = [{
+    'type': 'text',
+    'text': resMessage,
+  }]
+  var flexType =[{
+        'type':'flex', //ここの宣言が必須
+        'altText':'this is a flex message',
+        //↓このcontentsの部分にSimulatorのJSONをコピー
+        'contents': frexMessageSimulator,   
+  }]
+  var message = chFlg === 3 ? flexType : textType;
   UrlFetchApp.fetch(url, {
   'headers': {
     'Content-Type': 'application/json; charset=UTF-8',
@@ -103,11 +339,7 @@ function doPost(e) {
   'method': 'post',
   'payload': JSON.stringify({
     'replyToken': replyToken,
-    'messages': [{
-      'type': 'text',
-      'text': resMessage,
-      //'text': userMessage,
-    }],
+    'messages': message,
   }),
   });
   return ContentService.createTextOutput(JSON.stringify({'content': 'post ok'})).setMimeType(ContentService.MimeType.JSON);
