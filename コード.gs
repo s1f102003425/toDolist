@@ -26,6 +26,7 @@ function doPost(e) {
   //応答メッセージ
   var resMessage;
   var frexMessageSimulator;
+  var altText;
   //入力チェック結果
   var chFlg = 0;
   //記録先シート
@@ -39,7 +40,8 @@ function doPost(e) {
   var today = Utilities.formatDate( date, 'Asia/Tokyo', 'yyyy/MM/dd HH:mm:ss');
   //入力チェック
   if(userMessage.match(/^\$show/)){
-    chFlg = 3
+    chFlg = 3;
+    altText = 'やりたいことの一覧';
     var range = wSheet.getRange(4,1,lastRow-3,5);
     var values = range.getValues();
     // やることリストの雛型を説明
@@ -314,7 +316,7 @@ function doPost(e) {
   }]
   var flexType =[{
         'type':'flex', //ここの宣言が必須
-        'altText':'this is a flex message',
+        'altText':altText,
         //↓このcontentsの部分にSimulatorのJSONをコピー
         'contents': frexMessageSimulator,   
   }]
