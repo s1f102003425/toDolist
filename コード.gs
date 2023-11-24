@@ -39,9 +39,25 @@ function doPost(e) {
   var date = new Date();
   var today = Utilities.formatDate( date, 'Asia/Tokyo', 'yyyy/MM/dd HH:mm:ss');
   //入力チェック
-  if(userMessage.match(/^\$show/)){
+  if(userMessage.match(/^\$show\nraw$/)){
+    chFlg = 4;
+    var range = wSheet.getRange(4,1,lastRow-3,5);
+    var values = range.getValues();
+    resMessage = '☆\t発案者\n\tやること\n\t予算\n\t時期\n\t所要時間\n';
+    let rowNum = 1;
+    for(let rows of values){
+      resMessage += '------------------------------\n';
+      resMessage += String(rowNum) + '.';
+      for(let v of rows.slice(0,5)){
+        if(String(v) === '' || String(v) === '?' || String(v) === '？'){
+          v = '-'
+        }
+        resMessage += '\t' + String(v) + '\n';}
+      rowNum++;
+    }
+  }else if(userMessage.match(/^\$show$/)){
     chFlg = 3;
-    altText = 'やりたいことの一覧';
+    altText = 'やりたいことリスト';
     var range = wSheet.getRange(4,1,lastRow-3,5);
     var values = range.getValues();
     // やることリストの雛型を説明
