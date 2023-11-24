@@ -39,21 +39,6 @@ function doPost(e) {
   var today = Utilities.formatDate( date, 'Asia/Tokyo', 'yyyy/MM/dd HH:mm:ss');
   //入力チェック
   if(userMessage.match(/^\$show/)){
-    // chFlg = 3
-    // var range = wSheet.getRange(4,1,lastRow-3,5);
-    // var values = range.getValues();
-    // resMessage = '☆\t発案者\n\tやること\n\t予算\n\t時期\n\t所要時間\n';
-    // let rowNum = 1;
-    // for(let rows of values){
-    //   resMessage += '------------------------------\n';
-    //   resMessage += String(rowNum) + '.';
-    //   for(let v of rows.slice(0,5)){
-    //     if(String(v) === '' || String(v) === '?' || String(v) === '？'){
-    //       v = '-'
-    //     }
-    //     resMessage += '\t' + String(v) + '\n';}
-    //   rowNum++;
-    // }
     chFlg = 3
     var range = wSheet.getRange(4,1,lastRow-3,5);
     var values = range.getValues();
@@ -61,7 +46,7 @@ function doPost(e) {
     var taskList =[
     {
       "type": "bubble",
-      "size": "deca",
+      "size": "micro",
       "header": {
         "type": "box",
         "layout": "vertical",
@@ -69,15 +54,15 @@ function doPost(e) {
           {
             "type": "text",
             "text": "☆発案者",
-            "color": "#ffffff",
+            "color": "#f0f0f0",
             "size": "xs",
             "offsetBottom": "lg"
           },
           {
             "type": "text",
             "text": "やること",
-            "size": "lg",
-            "color": "#ffffff",
+            "size": "xxl",
+            "color": "#f0f0f0",
             "weight": "bold",
             "decoration": "underline",
             "align": "center"
@@ -85,7 +70,7 @@ function doPost(e) {
           {
             "type": "text",
             "text": "予算",
-            "color": "#ffffff",
+            "color": "#f0f0f0",
             "align": "center",
             "size": "sm",
             "gravity": "center",
@@ -113,7 +98,7 @@ function doPost(e) {
             "margin": "sm"
           }
         ],
-        "backgroundColor": "#0d0015",
+        "backgroundColor": "#4caf50",
         "paddingTop": "19px",
         "paddingAll": "12px",
         "paddingBottom": "16px"
@@ -166,20 +151,21 @@ function doPost(e) {
       const budget = '￥' + ((String(taskDetails[2]) !== '' && String(taskDetails[2]) !== '?' && String(taskDetails[2]) !== '？') ? String(taskDetails[2]) : '-');
       const when = (String(taskDetails[3]) !== '' && String(taskDetails[3]) !== '?' && String(taskDetails[3]) !== '？') ? String(taskDetails[3]) : '-';
       const duration = String(taskDetails[4]);
+      const color = duration !== '半日' ? '#f0f0f0' : '#333333';
       let backgroundColor;
       if (duration === '半日'){
-        backgroundColor = '#11734B'
+        backgroundColor = '#add8e6'
       }else if(duration === '終日'){
-        backgroundColor = '#0A53A8'
+        backgroundColor = '#000080'
       }else if(duration === '複数日'){
-        backgroundColor = '#B10202'
+        backgroundColor = '#ff8c00'
       }else{
-        backgroundColor = '#5A3286'
+        backgroundColor = '#a9a9a9'
       }
       taskList.push(
         {
           "type": "bubble",
-          "size": "deca",
+          "size": "micro",
           "header": {
             "type": "box",
             "layout": "vertical",
@@ -187,15 +173,15 @@ function doPost(e) {
               {
                 "type": "text",
                 "text": proposer,
-                "color": "#ffffff",
+                "color": color,
                 "size": "xs",
                 "offsetBottom": "lg"
               },
               {
                 "type": "text",
                 "text": thingToDo,
-                "size": "lg",
-                "color": "#ffffff",
+                "size": "xxl",
+                "color": color,
                 "weight": "bold",
                 "decoration": "underline",
                 "align": "center",
@@ -204,11 +190,12 @@ function doPost(e) {
               {
                 "type": "text",
                 "text": budget,
-                "color": "#ffffff",
+                "color": color,
                 "align": "center",
                 "size": "sm",
                 "gravity": "center",
-                "margin": "lg"
+                "margin": "lg",
+                "adjustMode": "shrink-to-fit"
               },
               {
                 "type": "box",
@@ -248,6 +235,7 @@ function doPost(e) {
                   {
                     "type": "text",
                     "text": when,
+                    "adjustMode": "shrink-to-fit",
                     "align": "center"
                   },
                   {
