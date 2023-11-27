@@ -73,19 +73,10 @@ function doPost(e) {
         {
           "type": "bubble",
           "size": "deca",
-          "body": {
+          "header": {
             "type": "box",
             "layout": "vertical",
             "contents": [
-              {
-                "type": "text",
-                "text": '(' + String(rowNum),
-                "position": "absolute",
-                "offsetBottom": "20px",
-                "offsetEnd": "13px",
-                "color": "#1DB446",
-                "size": "xs"
-              },
               {
                 "type": "text",
                 "text": thingToDo,
@@ -93,110 +84,120 @@ function doPost(e) {
                 "size": "lg",
                 "color": "#1DB446",
                 "adjustMode": "shrink-to-fit"
+              }
+            ],
+            "paddingTop": "15px",
+            "paddingBottom": "7px"
+          },
+          "body": {
+            "type": "box",
+            "layout": "vertical",
+            "margin": "lg",
+            "spacing": "sm",
+            "contents": [
+              {
+                "type": "box",
+                "layout": "baseline",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "予算:",
+                    "size": "md",
+                    "color": "#555555",
+                    "flex": 1,
+                    "weight": "bold"
+                  },
+                  {
+                    "type": "text",
+                    "text": budget,
+                    "size": "md",
+                    "color": "#111111",
+                    "flex": 4,
+                    "adjustMode": "shrink-to-fit"
+                  }
+                ]
               },
               {
                 "type": "box",
-                "layout": "vertical",
-                "margin": "lg",
-                "spacing": "sm",
+                "layout": "baseline",
                 "contents": [
                   {
-                    "type": "box",
-                    "layout": "baseline",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "予算:",
-                        "size": "md",
-                        "color": "#555555",
-                        "flex": 1,
-                        "weight": "bold"
-                      },
-                      {
-                        "type": "text",
-                        "text": budget,
-                        "size": "md",
-                        "color": "#111111",
-                        "flex": 4,
-                        "adjustMode": "shrink-to-fit"
-                      }
-                    ]
+                    "type": "text",
+                    "text": "時期:",
+                    "size": "md",
+                    "color": "#555555",
+                    "flex": 1,
+                    "weight": "bold"
                   },
                   {
-                    "type": "box",
-                    "layout": "baseline",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "時期:",
-                        "size": "md",
-                        "color": "#555555",
-                        "flex": 1,
-                        "weight": "bold"
-                      },
-                      {
-                        "type": "text",
-                        "text": when,
-                        "size": "md",
-                        "color": "#111111",
-                        "flex": 4,
-                        "adjustMode": "shrink-to-fit"
-                      }
-                    ]
-                  },
-                  {
-                    "type": "box",
-                    "layout": "baseline",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "時間:",
-                        "size": "md",
-                        "color": "#FF6B6E",
-                        "flex": 1,
-                        "weight": "bold"
-                      },
-                      {
-                        "type": "text",
-                        "text": duration,
-                        "size": "md",
-                        "color": "#111111",
-                        "flex": 4,
-                       "adjustMode": "shrink-to-fit"
-                      }
-                    ]
-                  },
-                  {
-                    "type": "box",
-                    "layout": "baseline",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "発案者:",
-                        "size": "xxs",
-                        "color": "#aaaaaa",
-                        "flex": 1
-                      },
-                      {
-                        "type": "text",
-                        "text": proposer,
-                        "size": "xxs",
-                        "color": "#888888",
-                        "flex": 4,
-                        "adjustMode": "shrink-to-fit"
-                      }
-                    ]
+                    "type": "text",
+                    "text": when,
+                    "size": "md",
+                    "color": "#111111",
+                    "flex": 4,
+                    "adjustMode": "shrink-to-fit"
                   }
                 ]
+              },
+              {
+                "type": "box",
+                "layout": "baseline",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "時間:",
+                    "size": "md",
+                    "color": "#FF6B6E",
+                    "flex": 1,
+                    "weight": "bold"
+                  },
+                  {
+                    "type": "text",
+                    "text": duration,
+                    "size": "md",
+                    "color": "#111111",
+                    "flex": 4,
+                    "adjustMode": "shrink-to-fit"
+                  }
+                ]
+              },
+              {
+                "type": "box",
+                "layout": "baseline",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "発案者:",
+                    "size": "xxs",
+                    "color": "#aaaaaa",
+                    "flex": 1
+                  },
+                  {
+                    "type": "text",
+                    "text": proposer,
+                    "size": "xxs",
+                    "color": "#888888",
+                    "flex": 4,
+                    "adjustMode": "shrink-to-fit"
+                  }
+                ]
+              },
+              {
+                "type": "text",
+                "text": String(rowNum),
+                "position": "absolute",
+                "offsetBottom": "7px",
+                "offsetEnd": "10px",
+                "size": "md",
+                "decoration": "underline"
               }
             ],
-            "backgroundColor": "#F8F8F8",
-            "paddingTop": "15px",
-            "paddingBottom": "18px",
-            "paddingStart": "20px",
-            "paddingEnd": "10px"
+            "paddingTop": "5px"
           },
           "styles": {
+            "header": {
+              "backgroundColor": "#F0F0F0"
+            },
             "footer": {
               "separator": false
             }
