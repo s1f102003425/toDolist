@@ -225,7 +225,190 @@ function doPost(e) {
       resMessage = `${userName}さんのやりたいことを記録しました！`;
       chFlg = 1;
     }else{
-      resMessage = "正しい形式で入力してください\n\n◎やることを記録\n\$[やること]　改行↲\n[予算(無記でも可)]　改行↲\n[時期(無記でも可)]　改行↲\n[所要時間(半日or終日or複数日or不明の形式で)]\n\n◎リストを表示\n\$show\n\n◎やることを削除\n\$remove　改行↲\n[リストで表示された番号で指定(半角数字)]\n\n※\$は全て半角"
+      chFlg = 3;
+      altText = 'チュートリアル';
+      frexMessageSimulator = {
+        "type": "carousel",
+        "contents": [
+          {
+            "type": "bubble",
+            "size": "mega",
+            "header": {
+              "type": "box",
+              "layout": "vertical",
+              "contents": [
+                {
+                  "type": "text",
+                  "text": "やることの追加",
+                  "weight": "bold",
+                  "color": "#1DB446",
+                  "size": "md"
+                }
+              ],
+              "paddingBottom": "7px",
+              "paddingTop": "15px"
+            },
+            "body": {
+              "type": "box",
+              "layout": "vertical",
+              "contents": [
+                {
+                  "type": "text",
+                  "text": "正しい形式で入力してください",
+                  "wrap": true,
+                  "weight": "bold",
+                  "size": "md",
+                  "margin": "md"
+                },
+                {
+                  "type": "text",
+                  "text": "$[やること]\n[予算(空欄でもok)]\n[時期(空欄でもok)]\n[時間(半日or終日or複数日or不明)]",
+                  "wrap": true,
+                  "size": "md",
+                  "margin": "md"
+                },
+                {
+                  "type": "image",
+                  "url": "https://drive.google.com/uc?id=1jTEBhmM5OIZOdL23Nu6t5DHB9FD-l4u4",
+                  "size": "full",
+                  "aspectRatio": "1.51:1.2",
+                  "aspectMode": "fit",
+                  "action": {
+                    "type": "uri",
+                    "uri": "https://drive.google.com/uc?id=1jTEBhmM5OIZOdL23Nu6t5DHB9FD-l4u4"
+                  },
+                  "margin": "md"
+                }
+              ],
+              "paddingTop": "5px",
+              "justifyContent": "space-between"
+            },
+            "styles": {
+              "header": {
+                "backgroundColor": "#F0F0F0"
+              }
+            }
+          },
+          {
+            "type": "bubble",
+            "size": "mega",
+            "header": {
+              "type": "box",
+              "layout": "vertical",
+              "contents": [
+                {
+                  "type": "text",
+                  "text": "やることの削除",
+                  "weight": "bold",
+                  "color": "#1DB446",
+                  "size": "md"
+                }
+              ],
+              "paddingBottom": "7px",
+              "paddingTop": "15px"
+            },
+            "body": {
+              "type": "box",
+              "layout": "vertical",
+              "contents": [
+                {
+                  "type": "text",
+                  "text": "正しい形式で入力してください",
+                  "wrap": true,
+                  "weight": "bold",
+                  "size": "md",
+                  "margin": "md"
+                },
+                {
+                  "type": "text",
+                  "text": "$remove\n[削除する項目の番号]",
+                  "wrap": true,
+                  "size": "md",
+                  "margin": "md"
+                },
+                {
+                  "type": "image",
+                  "url": "https://drive.google.com/uc?id=1Rcb4B9G38ApxUpRLICNzhLX4X4UcXZec",
+                  "size": "full",
+                  "aspectRatio": "1.51:1.2",
+                  "aspectMode": "fit",
+                  "action": {
+                    "type": "uri",
+                    "uri": "https://drive.google.com/uc?id=1jTEBhmM5OIZOdL23Nu6t5DHB9FD-l4u4"
+                  },
+                  "margin": "md"
+                }
+              ],
+              "paddingTop": "5px",
+              "justifyContent": "space-between"
+            },
+            "styles": {
+              "header": {
+                "backgroundColor": "#F0F0F0"
+              }
+            }
+          },
+          {
+            "type": "bubble",
+            "size": "mega",
+            "header": {
+              "type": "box",
+              "layout": "vertical",
+              "contents": [
+                {
+                  "type": "text",
+                  "text": "リストの参照",
+                  "weight": "bold",
+                  "color": "#1DB446",
+                  "size": "md"
+                }
+              ],
+              "paddingBottom": "7px",
+              "paddingTop": "15px"
+            },
+            "body": {
+              "type": "box",
+              "layout": "vertical",
+              "contents": [
+                {
+                  "type": "text",
+                  "text": "正しい形式で入力してください",
+                  "wrap": true,
+                  "weight": "bold",
+                  "size": "md",
+                  "margin": "md"
+                },
+                {
+                  "type": "text",
+                  "text": "$show\nもしくは\n$show\nraw",
+                  "wrap": true,
+                  "size": "md",
+                  "margin": "md"
+                },
+                {
+                  "type": "image",
+                  "url": "https://drive.google.com/uc?id=1sa5VcGWVp3IEdZQ6_8L7XbFEVPvpoAd-",
+                  "size": "full",
+                  "aspectRatio": "1.51:1.3",
+                  "aspectMode": "cover",
+                  "action": {
+                    "type": "uri",
+                    "uri": "https://drive.google.com/uc?id=1jTEBhmM5OIZOdL23Nu6t5DHB9FD-l4u4"
+                  },
+                  "margin": "md"
+                }
+              ],
+              "paddingTop": "5px",
+              "justifyContent": "space-between"
+            },
+            "styles": {
+              "header": {
+                "backgroundColor": "#F0F0F0"
+              }
+            }
+          }
+        ]
+      };
     }   
   }else{
     // resMessage = "文頭に「$(半角)」を付けてください";
@@ -249,7 +432,7 @@ function doPost(e) {
     'text': resMessage,
   }]
   var flexType =[{
-        'type':'flex', //ここの宣言が必須
+        'type':'flex',
         'altText':altText,
         //↓このcontentsの部分にSimulatorのJSONをコピー
         'contents': frexMessageSimulator,   
