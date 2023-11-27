@@ -60,223 +60,141 @@ function doPost(e) {
     altText = 'やりたいことリスト';
     var range = wSheet.getRange(4,1,lastRow-3,5);
     var values = range.getValues();
-    // やることリストの雛型を説明
-    var taskList =[
-    {
-      "type": "bubble",
-      "size": "micro",
-      "header": {
-        "type": "box",
-        "layout": "vertical",
-        "contents": [
-          {
-            "type": "text",
-            "text": "☆発案者",
-            "color": "#f0f0f0",
-            "size": "xs",
-            "offsetBottom": "lg"
-          },
-          {
-            "type": "text",
-            "text": "やること",
-            "size": "xxl",
-            "color": "#f0f0f0",
-            "weight": "bold",
-            "decoration": "underline",
-            "align": "center"
-          },
-          {
-            "type": "text",
-            "text": "予算",
-            "color": "#f0f0f0",
-            "align": "center",
-            "size": "sm",
-            "gravity": "center",
-            "margin": "lg"
-          },
-          {
-            "type": "box",
-            "layout": "vertical",
-            "contents": [
-              {
-                "type": "box",
-                "layout": "vertical",
-                "contents": [
-                  {
-                    "type": "filler"
-                  }
-                ],
-                "width": "100%",
-                "backgroundColor": "#e6b422",
-                "height": "6px"
-              }
-            ],
-            "backgroundColor": "#9FD8E36E",
-            "height": "6px",
-            "margin": "sm"
-          }
-        ],
-        "backgroundColor": "#4caf50",
-        "paddingTop": "19px",
-        "paddingAll": "12px",
-        "paddingBottom": "16px"
-      },
-      "body": {
-        "type": "box",
-        "layout": "vertical",
-        "contents": [
-          {
-            "type": "box",
-            "layout": "horizontal",
-            "contents": [
-              {
-                "type": "text",
-                "text": "時期",
-                "align": "center"
-              },
-              {
-                "type": "box",
-                "layout": "vertical",
-                "contents": [
-                  {
-                    "type": "text",
-                    "text": "所要時間",
-                    "align": "end",
-                    "weight": "bold",
-                    "position": "relative"
-                  }
-                ],
-                "maxWidth": "75px"
-              }
-            ],
-            "flex": 1
-          }
-        ],
-        "spacing": "md",
-        "paddingAll": "12px"
-      },
-      "styles": {
-        "footer": {
-          "separator": false
-        }
-      }
-    }];
     let rowNum = 1;
+    let taskList = [];
     for(let rows of values){
       const taskDetails = rows.slice(0,5);
-      const proposer = String(rowNum) + '. ' + String(taskDetails[0]);
+      const proposer = String(taskDetails[0]);
       const thingToDo = String(taskDetails[1]);
       const budget = '￥' + ((String(taskDetails[2]) !== '' && String(taskDetails[2]) !== '?' && String(taskDetails[2]) !== '？') ? String(taskDetails[2]) : '-');
       const when = (String(taskDetails[3]) !== '' && String(taskDetails[3]) !== '?' && String(taskDetails[3]) !== '？') ? String(taskDetails[3]) : '-';
       const duration = String(taskDetails[4]);
-      const color = duration !== '半日' ? '#f0f0f0' : '#333333';
-      let backgroundColor;
-      if (duration === '半日'){
-        backgroundColor = '#add8e6'
-      }else if(duration === '終日'){
-        backgroundColor = '#000080'
-      }else if(duration === '複数日'){
-        backgroundColor = '#ff8c00'
-      }else{
-        backgroundColor = '#a9a9a9'
-      }
       taskList.push(
         {
           "type": "bubble",
-          "size": "micro",
-          "header": {
-            "type": "box",
-            "layout": "vertical",
-            "contents": [
-              {
-                "type": "text",
-                "text": proposer,
-                "color": color,
-                "size": "xs",
-                "offsetBottom": "lg"
-              },
-              {
-                "type": "text",
-                "text": thingToDo,
-                "size": "xxl",
-                "color": color,
-                "weight": "bold",
-                "decoration": "underline",
-                "align": "center",
-                "adjustMode": "shrink-to-fit"
-              },
-              {
-                "type": "text",
-                "text": budget,
-                "color": color,
-                "align": "center",
-                "size": "sm",
-                "gravity": "center",
-                "margin": "lg",
-                "adjustMode": "shrink-to-fit"
-              },
-              {
-                "type": "box",
-                "layout": "vertical",
-                "contents": [
-                  {
-                    "type": "box",
-                    "layout": "vertical",
-                    "contents": [
-                      {
-                        "type": "filler"
-                      }
-                    ],
-                    "width": "100%",
-                    "backgroundColor": "#e6b422",
-                    "height": "6px"
-                  }
-                ],
-                "backgroundColor": "#9FD8E36E",
-                "height": "6px",
-                "margin": "sm"
-              }
-            ],
-            "backgroundColor": backgroundColor,
-            "paddingTop": "19px",
-            "paddingAll": "12px",
-            "paddingBottom": "16px"
-          },
+          "size": "deca",
           "body": {
             "type": "box",
             "layout": "vertical",
             "contents": [
               {
+                "type": "text",
+                "text": '(' + String(rowNum),
+                "position": "absolute",
+                "offsetBottom": "20px",
+                "offsetEnd": "13px",
+                "color": "#1DB446",
+                "size": "xs"
+              },
+              {
+                "type": "text",
+                "text": thingToDo,
+                "weight": "bold",
+                "size": "lg",
+                "color": "#1DB446",
+                "adjustMode": "shrink-to-fit"
+              },
+              {
                 "type": "box",
-                "layout": "horizontal",
+                "layout": "vertical",
+                "margin": "lg",
+                "spacing": "sm",
                 "contents": [
                   {
-                    "type": "text",
-                    "text": when,
-                    "adjustMode": "shrink-to-fit",
-                    "align": "center"
-                  },
-                  {
                     "type": "box",
-                    "layout": "vertical",
+                    "layout": "baseline",
                     "contents": [
                       {
                         "type": "text",
-                        "text": duration,
-                        "align": "end",
-                        "weight": "bold",
-                        "position": "relative",
+                        "text": "予算:",
+                        "size": "md",
+                        "color": "#555555",
+                        "flex": 1,
+                        "weight": "bold"
+                      },
+                      {
+                        "type": "text",
+                        "text": budget,
+                        "size": "md",
+                        "color": "#111111",
+                        "flex": 4,
                         "adjustMode": "shrink-to-fit"
                       }
-                    ],
-                    "maxWidth": "40px"
+                    ]
+                  },
+                  {
+                    "type": "box",
+                    "layout": "baseline",
+                    "contents": [
+                      {
+                        "type": "text",
+                        "text": "時期:",
+                        "size": "md",
+                        "color": "#555555",
+                        "flex": 1,
+                        "weight": "bold"
+                      },
+                      {
+                        "type": "text",
+                        "text": when,
+                        "size": "md",
+                        "color": "#111111",
+                        "flex": 4,
+                        "adjustMode": "shrink-to-fit"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "box",
+                    "layout": "baseline",
+                    "contents": [
+                      {
+                        "type": "text",
+                        "text": "時間:",
+                        "size": "md",
+                        "color": "#FF6B6E",
+                        "flex": 1,
+                        "weight": "bold"
+                      },
+                      {
+                        "type": "text",
+                        "text": duration,
+                        "size": "md",
+                        "color": "#111111",
+                        "flex": 4,
+                       "adjustMode": "shrink-to-fit"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "box",
+                    "layout": "baseline",
+                    "contents": [
+                      {
+                        "type": "text",
+                        "text": "発案者:",
+                        "size": "xxs",
+                        "color": "#aaaaaa",
+                        "flex": 1
+                      },
+                      {
+                        "type": "text",
+                        "text": proposer,
+                        "size": "xxs",
+                        "color": "#888888",
+                        "flex": 4,
+                        "adjustMode": "shrink-to-fit"
+                      }
+                    ]
                   }
-                ],
-                "flex": 1
+                ]
               }
             ],
-            "spacing": "md",
-            "paddingAll": "12px"
+            "backgroundColor": "#F8F8F8",
+            "paddingTop": "15px",
+            "paddingBottom": "18px",
+            "paddingStart": "20px",
+            "paddingEnd": "10px"
           },
           "styles": {
             "footer": {
@@ -284,7 +202,7 @@ function doPost(e) {
             }
           }
         }
-      )
+      );
       rowNum++;
     }
     frexMessageSimulator = {
