@@ -1,8 +1,6 @@
 // スクリプトプロパティでトークンキーを管理
 const prop = PropertiesService.getScriptProperties().getProperties();
 const ACCESS_TOKEN = prop.ACCESS_TOKEN;
-// LINE developersのメッセージ送受信設定に記載のアクセストークン
-// const ACCESS_TOKEN = 'ここにAPIトークンを入力';
 function doPost(e) {
   // WebHookで受信した応答用Token
   var replyToken = JSON.parse(e.postData.contents).events[0].replyToken;
@@ -259,7 +257,8 @@ function doPost(e) {
                   "wrap": true,
                   "weight": "bold",
                   "size": "md",
-                  "margin": "md"
+                  "margin": "md",
+                  "decoration": "underline"
                 },
                 {
                   "type": "text",
@@ -271,65 +270,6 @@ function doPost(e) {
                 {
                   "type": "image",
                   "url": "https://drive.google.com/uc?id=1jTEBhmM5OIZOdL23Nu6t5DHB9FD-l4u4",
-                  "size": "full",
-                  "aspectRatio": "1.51:1.2",
-                  "aspectMode": "fit",
-                  "action": {
-                    "type": "uri",
-                    "uri": "https://drive.google.com/uc?id=1jTEBhmM5OIZOdL23Nu6t5DHB9FD-l4u4"
-                  },
-                  "margin": "md"
-                }
-              ],
-              "paddingTop": "5px",
-              "justifyContent": "space-between"
-            },
-            "styles": {
-              "header": {
-                "backgroundColor": "#F0F0F0"
-              }
-            }
-          },
-          {
-            "type": "bubble",
-            "size": "mega",
-            "header": {
-              "type": "box",
-              "layout": "vertical",
-              "contents": [
-                {
-                  "type": "text",
-                  "text": "やることの削除",
-                  "weight": "bold",
-                  "color": "#1DB446",
-                  "size": "md"
-                }
-              ],
-              "paddingBottom": "7px",
-              "paddingTop": "15px"
-            },
-            "body": {
-              "type": "box",
-              "layout": "vertical",
-              "contents": [
-                {
-                  "type": "text",
-                  "text": "正しい形式で入力してください",
-                  "wrap": true,
-                  "weight": "bold",
-                  "size": "md",
-                  "margin": "md"
-                },
-                {
-                  "type": "text",
-                  "text": "$remove\n[削除する項目の番号]",
-                  "wrap": true,
-                  "size": "md",
-                  "margin": "md"
-                },
-                {
-                  "type": "image",
-                  "url": "https://drive.google.com/uc?id=1Rcb4B9G38ApxUpRLICNzhLX4X4UcXZec",
                   "size": "full",
                   "aspectRatio": "1.51:1.2",
                   "aspectMode": "fit",
@@ -377,7 +317,8 @@ function doPost(e) {
                   "wrap": true,
                   "weight": "bold",
                   "size": "md",
-                  "margin": "md"
+                  "margin": "md",
+                  "decoration": "underline"
                 },
                 {
                   "type": "text",
@@ -392,6 +333,66 @@ function doPost(e) {
                   "size": "full",
                   "aspectRatio": "1.51:1.3",
                   "aspectMode": "cover",
+                  "action": {
+                    "type": "uri",
+                    "uri": "https://drive.google.com/uc?id=1jTEBhmM5OIZOdL23Nu6t5DHB9FD-l4u4"
+                  },
+                  "margin": "md"
+                }
+              ],
+              "paddingTop": "5px",
+              "justifyContent": "space-between"
+            },
+            "styles": {
+              "header": {
+                "backgroundColor": "#F0F0F0"
+              }
+            }
+          },
+          {
+            "type": "bubble",
+            "size": "mega",
+            "header": {
+              "type": "box",
+              "layout": "vertical",
+              "contents": [
+                {
+                  "type": "text",
+                  "text": "やることの削除",
+                  "weight": "bold",
+                  "color": "#1DB446",
+                  "size": "md"
+                }
+              ],
+              "paddingBottom": "7px",
+              "paddingTop": "15px"
+            },
+            "body": {
+              "type": "box",
+              "layout": "vertical",
+              "contents": [
+                {
+                  "type": "text",
+                  "text": "正しい形式で入力してください",
+                  "wrap": true,
+                  "weight": "bold",
+                  "size": "md",
+                  "margin": "md",
+                  "decoration": "underline"
+                },
+                {
+                  "type": "text",
+                  "text": "$remove\n[削除する項目の番号]",
+                  "wrap": true,
+                  "size": "md",
+                  "margin": "md"
+                },
+                {
+                  "type": "image",
+                  "url": "https://drive.google.com/uc?id=1Rcb4B9G38ApxUpRLICNzhLX4X4UcXZec",
+                  "size": "full",
+                  "aspectRatio": "1.51:1.2",
+                  "aspectMode": "fit",
                   "action": {
                     "type": "uri",
                     "uri": "https://drive.google.com/uc?id=1jTEBhmM5OIZOdL23Nu6t5DHB9FD-l4u4"
